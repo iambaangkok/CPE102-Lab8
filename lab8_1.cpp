@@ -3,9 +3,16 @@
 using namespace std;
 
 int main(){	
+
+	double initialLoan, interestRate, payableAmountPerYear, currentLoan;
+
 	cout << "Enter initial loan: ";
+	cin >> initialLoan;
+	currentLoan = initialLoan;
 	cout << "Enter interest rate per year (%): ";
+	cin >> interestRate;
 	cout << "Enter amount you can pay per year: ";
+	cin >> payableAmountPerYear;
 
 	//use 'setw' to set width of table and 'left' to set left-alignment
 	//you can change input argument of 'setw()' to see the effect
@@ -20,14 +27,25 @@ int main(){
 	
 	//use 'fixed' and 'setprecision' to fix the number of decimal digits for displaying
 	//you can change input argument of 'setprecision()' to see the effect
-	cout << fixed << setprecision(2); 
-	cout << setw(13) << left << 1; 
-	cout << setw(13) << left << 1000.0;
-	cout << setw(13) << left << 50.0;
-	cout << setw(13) << left << 1050.0;
-	cout << setw(13) << left << 100.0;
-	cout << setw(13) << left << 950.0;
-	cout << "\n";	
+	long long int year = 1;
+	double interest;
+	while(currentLoan > 0){
+		cout << setw(13) << left << year;
+		cout << setw(13) << left << fixed << setprecision(2) << currentLoan;
+		interest = currentLoan*interestRate/100;
+		cout << setw(13) << left << fixed << setprecision(2) << interest;
+		currentLoan = currentLoan+interest;
+		cout << setw(13) << left << fixed << setprecision(2) << currentLoan;
+		cout << setw(13) << left << fixed << setprecision(2) << ((currentLoan<=payableAmountPerYear)? currentLoan : payableAmountPerYear);
+		cout << setw(13) << left << fixed << setprecision(2) << ((currentLoan<=payableAmountPerYear)? 0 : currentLoan-payableAmountPerYear);
+		cout << endl;
+
+		currentLoan = ((currentLoan<payableAmountPerYear)? 0 : currentLoan-payableAmountPerYear);
+		year++;
+	}
+
+	
+	
 	
 	return 0;
 }
